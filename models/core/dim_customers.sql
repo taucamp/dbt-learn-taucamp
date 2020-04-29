@@ -11,31 +11,31 @@ with customers as (
 ),
 
 
-customer_orders as (
-    select customer_id,
-      min(order_date) as first_order_date,
-      max(order_date) as most_recent_order_date,
-      count(order_id) as number_of_orders,
-      sum(order_total) as customer_lifetime_order_amount
+customer_orders AS (
+    SELECT customer_id,
+      MIN(order_date) AS first_order_date,
+      MAX(order_date) AS most_recent_order_date,
+      COUNT(order_id) AS number_of_orders,
+      SUM(order_total) AS customer_lifetime_order_amount
       
-    from {{ ref('fct_orders') }}
+    FROM {{ ref('fct_orders') }}
     
-    group by 1
+    GROUP BY 1
 ),
 
 
-final as (
-    select
+final AS (
+    SELECT
         customers.customer_id,
         -- customers.first_name,
         -- customers.last_name,
         customers.customer_name,
         first_order_date,
         most_recent_order_date,
-        coalesce(number_of_orders,0) as number_of_orders,
-        coalesce(customer_lifetime_order_amount,0) as lifetime_order_amount
+        coalesce(number_of_orders,0) AS number_of_orders,
+        coalesce(customer_lifetime_order_amount,0) AS lifetime_order_amount
         
-    from customers
-    left join customer_orders using (customer_id)
+    FROM customers
+    LEFT JOIN customer_orders USING (customer_id)
 )
-select * from final
+SELECT * FROM final

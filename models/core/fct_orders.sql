@@ -6,24 +6,24 @@
 
 WITH 
 
-orders as (
+orders AS (
     SELECT * FROM {{ ref('stg_orders') }}
 )
 , 
 order_payments AS (
     SELECT 
     order_id,
-    sum(order_amount) as order_total
+    sum(order_amount) AS order_total
      FROM {{ ref('stg_payments') }}
-     group by 1
+     GROUP BY 1
 )
 
 SELECT 
-orders.order_id,
-orders.customer_id,
-orders.order_date,
-orders.order_status,
-coalesce(order_payments.order_total,0) as order_total
+  orders.order_id,
+  orders.customer_id,
+  orders.order_date,
+  orders.order_status,
+  COALESCE(order_payments.order_total,0) AS order_total
 
 FROM orders 
     LEFT JOIN order_payments USING (order_id)
