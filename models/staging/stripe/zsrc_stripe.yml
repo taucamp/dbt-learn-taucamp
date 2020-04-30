@@ -41,7 +41,7 @@ sources:
               
           - name: orderID
             description: ID of Order
-            tests:
+            # tests:
               
           - name: paymentMethod
             description: Method used to pay and it can be multiple ways to pay
@@ -50,12 +50,12 @@ sources:
 
           - name: AMOUNT
             description: Amount paid by by particular method on the order on that day
-            tests:
+            # tests:
 
           - name: CREATED
             description: Date of Payment was entered
-            tests:
+            # tests:
 
           - name: _BATCHED_AT
             description: When written to database
-            tests:
+            # tests:
