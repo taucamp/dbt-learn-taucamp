@@ -1,0 +1,61 @@
+version: 2
+
+
+sources:
+  - name: stripe
+    description: nightly loads of orders
+    database: raw
+    schema: stripe
+    loader: snowflake
+
+
+    # freshness:
+    #     warn_after:
+    #       period: hour
+    #       count:  24
+    #     error_after:
+    #       period: hour
+    #       count:  36
+    #
+    # loaded_at_field: __updatetime
+
+    # quoting:
+    #   database: false
+    #   # schema: false
+    #   identifier: false
+
+    tables:
+      - name: payment
+        columns:
+          - name: row
+            description: assumed index
+            tests:
+              - not_null
+              - unique
+
+          - name: ID
+            description: Customer ID
+            tests:
+              - not_null
+              
+              
+          - name: orderID
+            description: ID of Order
+            tests:
+              
+          - name: paymentMethod
+            description: Method used to pay and it can be multiple ways to pay
+            tests:
+              - accepted_values ['credit_card','coupon','bank_transfer','gift_card']
+
+          - name: AMOUNT
+            description: Amount paid by by particular method on the order on that day
+            tests:
+
+          - name: CREATED
+            description: Date of Payment was entered
+            tests:
+
+          - name: _BATCHED_AT
+            description: When written to database
+            tests:

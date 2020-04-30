@@ -1,0 +1,102 @@
+version: 2
+
+
+sources:
+  - name: jaffle_shop
+    description: nightly loads of orders
+    database: raw
+    schema: jaffle_shop
+    loader: snowflake
+
+
+    # freshness:
+    #     warn_after:
+    #       period: hour
+    #       count:  24
+    #     error_after:
+    #       period: hour
+    #       count:  36
+    #
+    # loaded_at_field: __updatetime
+
+    # quoting:
+    #   database: false
+    #   # schema: false
+    #   identifier: false
+
+    tables:
+      - name: customers
+        columns:
+          - name: row
+            description: assumed index
+            tests:
+              - not_null
+              - unique
+
+          - name: ID
+            description: Customer ID
+            tests:
+              - not_null
+              - unique
+              
+
+          - name: FIRST_NAME
+            description: First name of Customer
+            tests:
+              
+
+          - name: LAST_NAME
+            description: Last name of Customer
+            tests:
+              
+        #############
+        # NEW TABLE
+        #############
+      - name: orders
+        columns:
+          - name: row
+            description: assumed index
+            tests:
+              - not_null
+              - unique
+
+          - name: ID
+            description: Order ID
+            tests:
+              - not_null
+              - unique
+               
+
+          - name: user_id
+            description: this is equivalent to the Customer ID
+            tests:
+              - not_null
+              - relationships:
+                  to: ref('stg_customers')
+                  field: customer_id
+
+                
+
+          - name: order_date
+            description: date of order
+            tests:
+
+          - name: status
+            description: custer status of Order
+            tests:
+              - accepted_values ['returned','completed','return_pending','shipped','placed']
+
+          - name: _etl_loaded_at
+            description: when row is loaded
+            tests:
+
+            # freshness:
+            #     warn_after:
+            #       period: minute
+            #       count:  15
+            #     error_after:
+            #       period: hour
+            #       count:  1
+                
+            # loaded_at_field: __updatetime
+

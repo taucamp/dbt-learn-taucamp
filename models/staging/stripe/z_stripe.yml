@@ -1,0 +1,30 @@
+version: 2
+models:
+  - name: stg_payments
+    description: Payment data from Stripe
+    columns:
+      - name: order_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
+          
+      - name: payment_method
+        description: Manner in which Customer Paid
+        tests:
+          - accepted_values:
+              values: ['credit_card','coupon','bank_transfer','gift_card']
+
+      - name: order_amount
+        description: How much the payment was 
+
+      - name: created_at
+        description: When it created
+        
+      - name: batched_at
+        description: when it was batched
+
+
+
+
+     
