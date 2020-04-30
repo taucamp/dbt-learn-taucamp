@@ -3,4 +3,6 @@ SELECT
         first_name,
         last_name,
         CONCAT(first_name,' ',last_name) AS customer_name
-    FROM raw.jaffle_shop.customers
+    
+    FROM {{ source('jaffle_shop', 'customers') }}
+    -- FROM raw.jaffle_shop.customers

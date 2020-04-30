@@ -13,7 +13,7 @@ models:
         description: Manner in which Customer Paid
         tests:
           - accepted_values:
-              values: ['placed','shipped', 'completed', 'return_pending', 'returned']
+              values: ['credit_card','coupon','bank_transfer','gift_card']
 
       - name: order_amount
         description: How much the payment was 

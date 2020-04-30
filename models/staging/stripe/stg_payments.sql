@@ -1,8 +1,9 @@
 SELECT
      "orderID" AS order_id,
-     p."paymentMethod" AS payment_method,
-     p."AMOUNT" AS order_amount,
-     p."CREATED" AS created_at,
-     p."_BATCHED_AT" AS batched_at
+     "paymentMethod" AS payment_method,
+     "AMOUNT" AS order_amount,
+     "CREATED" AS created_at,
+     "_BATCHED_AT" AS batched_at
   
- FROM raw.stripe.payment p
+ FROM {{ source('stripe', 'payment') }}
+--  FROM raw.stripe.payment p
