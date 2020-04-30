@@ -42,12 +42,12 @@ sources:
 
           - name: FIRST_NAME
             description: First name of Customer
-            tests:
+            # tests:
               
 
           - name: LAST_NAME
             description: Last name of Customer
-            tests:
+            # tests:
               
         #############
         # NEW TABLE
@@ -64,7 +64,7 @@ sources:
             description: Order ID
             tests:
               - not_null
-              - unique
+              
                
 
           - name: user_id
@@ -79,16 +79,17 @@ sources:
 
           - name: order_date
             description: date of order
-            tests:
+            # tests:
 
           - name: status
             description: custer status of Order
             tests:
-              - accepted_values ['returned','completed','return_pending','shipped','placed']
+              - accepted_values:
+                    values: ['returned','completed','return_pending','shipped','placed']
 
           - name: _etl_loaded_at
             description: when row is loaded
-            tests:
+            # tests:
 
             # freshness:
             #     warn_after:

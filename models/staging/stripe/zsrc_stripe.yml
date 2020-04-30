@@ -19,19 +19,19 @@ sources:
     #
     # loaded_at_field: __updatetime
 
-    # quoting:
-    #   database: false
+    quoting:
+      database: false
     #   # schema: false
     #   identifier: false
 
     tables:
       - name: payment
         columns:
-          - name: row
-            description: assumed index
-            tests:
-              - not_null
-              - unique
+          # - name: row
+          #   description: assumed index
+          #   tests:
+          #     - not_null
+              
 
           - name: ID
             description: Customer ID
@@ -46,7 +46,8 @@ sources:
           - name: paymentMethod
             description: Method used to pay and it can be multiple ways to pay
             tests:
-              - accepted_values ['credit_card','coupon','bank_transfer','gift_card']
+              - accepted_values: 
+                  values: ['credit_card','coupon','bank_transfer','gift_card']
 
           - name: AMOUNT
             description: Amount paid by by particular method on the order on that day
